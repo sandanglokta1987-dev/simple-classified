@@ -1,43 +1,31 @@
-<div align="center">
-  <h1>Simple Classified</h1>
-   <img
-      src="./document/cover.png"
-      alt="Simple Classified Landing Page"/>
-</div>
+# Lucknow Hotel Compare
 
-## Features
+A Lucknow-only hotel booking comparison project built with Node.js, Express, EJS, and MongoDB.
 
-- User can Register and Login
-- User can submit their Ad with images,Location, price and description.
-- User can edit or delete their own ad after posting.
+## What it does
+- Shows hotel listings only for **Lucknow, Uttar Pradesh**
+- Lets users create/edit listing cards with price and photos
+- Adds review comparison blocks for these platforms:
+  - Trip Advisor
+  - Google
+  - MakeMyTrip
+  - Oyo
+  - Booking.com
+  - Agoda
 
-## Requirements
+## Quick start (easy executable)
+1. Install dependencies
+   - `npm install`
+2. Start MongoDB locally (default URL is `mongodb://localhost:27017/classified`)
+3. Run app
+   - `npm start`
+4. Open `http://localhost:3000`
 
-- Nodejs installed
-- Mongo db connection
-- <a href= "https://cloudinary.com/invites/lpov9zyyucivvxsnalc5/dl7ux4wyyctegpw106ox?t=default">Cloudinary Account</a>
+## Optional environment variables
+- `DB_URL`
+- `SECRET`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_KEY`
+- `CLOUDINARY_SECRET`
 
-## Setup with docker compose
-
-- Clone Project
-  - `git clone git@github.com:zaselalk/simple-classified.git`
-- RENAME the `.env.example` as `.env`
-- Updated the env variables
-- run the development docker compose
-  - `docker-compose -f docker-compose.dev.yml up -d`
-
-## Setup guide
-
-- Clone Project
-  - `git clone git@github.com:zaselalk/simple-classified.git`
-- Copy rename .env.example file as .env
-- Complete following deatils on renamed file
-  - SECRET=Some Random Secret
-  - CLOUDINARY_CLOUD_NAME= Clodinary cloud name
-  - CLOUDINARY_KEY= Clodinary API key
-  - CLOUDINARY_SECRET= Clodinary API secret
-  - DB_URL = Mongo DB url - Default : mongodb://localhost:27017/classified
-- Install dependencies with `npm install`
-- start application with `npm run dev` or `npm start`
-
-### Need more updated or help ? connect with me <a href= "https://twitter.com/zaselalk">on Twiiter</a>
+> If Cloudinary variables are not set, listing creation with image upload may fail; run without uploading images or configure Cloudinary.
