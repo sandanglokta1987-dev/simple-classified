@@ -3,9 +3,7 @@ const router = express.Router();
 const ads = require("../controllers/ads");
 const catchAsync = require("../utils/catchAsync");
 const { isLoggedIn, isAuthor, validateAd } = require("../middleware");
-const multer = require("multer");
-const { storage } = require("../cloudinary");
-const upload = multer({ storage });
+const { upload } = require("../cloudinary");
 
 router
   .route("/")
