@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const { PLATFORMS } = require("../data/lucknowReviews");
 
 const ImageSchema = new Schema({
   url: String,
@@ -7,8 +8,30 @@ const ImageSchema = new Schema({
 });
 
 ImageSchema.virtual("thumbnail").get(function () {
-  return this.url.replace("/upload", "/upload/w_200");
+  return this.url.replace("/upload", "/upload/w_400");
 });
+
+const PlatformReviewSchema = new Schema(
+  {
+    platform: {
+      type: String,
+      enum: PLATFORMS,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      min: 1,
+      max: 5,
+      required: true,
+    },
+    quote: {
+      type: String,
+      required: true,
+    },
+    sourceUrl: String,
+  },
+  { _id: false }
+);
 
 const opts = { toJSON: { virtuals: true } };
 
@@ -18,22 +41,13 @@ const AdsSchema = new Schema(
     images: [ImageSchema],
     price: Number,
     description: String,
-    location: String,
+    location: {
+      type: String,
+      default: "Lucknow, Uttar Pradesh",
+    },
     category: {
       type: String,
-      enum: [
-        "Electronics",
-        "Vehicles",
-        "Real Estate",
-        "Furniture",
-        "Clothing",
-        "Books",
-        "Sports & Recreation",
-        "Home & Garden",
-        "Services",
-        "Jobs",
-        "Other",
-      ],
+      enum: PLATFORMS,
       required: true,
     },
     status: {
@@ -45,12 +59,7 @@ const AdsSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    reviews: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Review",
-      },
-    ],
+    platformReviews: [PlatformReviewSchema],
   },
   { ...opts, timestamps: true }
 );

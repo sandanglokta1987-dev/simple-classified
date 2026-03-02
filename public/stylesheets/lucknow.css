@@ -1,0 +1,33 @@
+:root {
+  --bg: #0f172a;
+  --card: rgba(15, 23, 42, 0.72);
+  --text: #e2e8f0;
+  --accent: #38bdf8;
+}
+
+body {
+  background: radial-gradient(circle at top right, #1d4ed8, #0f172a 52%);
+  color: var(--text);
+}
+
+.glass-card {
+  background: var(--card);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.35);
+}
+
+.hotel-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hotel-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 34px rgba(56, 189, 248, 0.24);
+}
+
+.hero-3d {
+  background: linear-gradient(140deg, rgba(56, 189, 248, 0.35), rgba(129, 140, 248, 0.24));
+  border-radius: 20px;
+  transform: perspective(1000px) rotateX(5deg);
+}

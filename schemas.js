@@ -1,5 +1,6 @@
 const BaseJoi = require("joi");
 const sanitizeHtml = require("sanitize-html");
+const { PLATFORMS } = require("./data/lucknowReviews");
 
 const extension = (joi) => ({
   type: "string",
@@ -28,23 +29,11 @@ module.exports.AdSchema = Joi.object({
   Ad: Joi.object({
     title: Joi.string().required().escapeHTML(),
     price: Joi.number().required().min(0),
-    location: Joi.string().required().escapeHTML(),
+    location: Joi.string().allow("").escapeHTML(),
     description: Joi.string().required().escapeHTML(),
     status: Joi.string().valid("draft", "pending", "published"),
     category: Joi.string()
-      .valid(
-        "Electronics",
-        "Vehicles",
-        "Real Estate",
-        "Furniture",
-        "Clothing",
-        "Books",
-        "Sports & Recreation",
-        "Home & Garden",
-        "Services",
-        "Jobs",
-        "Other"
-      )
+      .valid(...PLATFORMS)
       .required(),
   }).required(),
   deleteImages: Joi.array(),

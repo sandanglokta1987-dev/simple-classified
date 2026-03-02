@@ -1,103 +1,34 @@
 <% layout('layouts/boilerplate')%>
-<div class="container mb-4">
-  <h1>All Ads</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1>Lucknow Hotel Listings</h1>
+    <p class="text-light">Location locked to Lucknow, Uttar Pradesh.</p>
+  </div>
+  <a href="/ads/new" class="btn btn-info">Add Lucknow Hotel</a>
+</div>
 
-  <div class="mb-3">
-    <h5>Filter by Category:</h5>
-    <div class="btn-group" role="group" aria-label="Category filter">
-      <a
-        href="/ads"
-        class="btn <%= selectedCategory === 'all' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >All</a
-      >
-      <a
-        href="/ads?category=Electronics"
-        class="btn <%= selectedCategory === 'Electronics' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Electronics</a
-      >
-      <a
-        href="/ads?category=Vehicles"
-        class="btn <%= selectedCategory === 'Vehicles' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Vehicles</a
-      >
-      <a
-        href="/ads?category=Real%20Estate"
-        class="btn <%= selectedCategory === 'Real Estate' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Real Estate</a
-      >
-      <a
-        href="/ads?category=Furniture"
-        class="btn <%= selectedCategory === 'Furniture' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Furniture</a
-      >
-      <a
-        href="/ads?category=Clothing"
-        class="btn <%= selectedCategory === 'Clothing' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Clothing</a
-      >
-      <a
-        href="/ads?category=Books"
-        class="btn <%= selectedCategory === 'Books' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Books</a
-      >
-      <a
-        href="/ads?category=Sports%20%26%20Recreation"
-        class="btn <%= selectedCategory === 'Sports & Recreation' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Sports</a
-      >
-      <a
-        href="/ads?category=Home%20%26%20Garden"
-        class="btn <%= selectedCategory === 'Home & Garden' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Home & Garden</a
-      >
-      <a
-        href="/ads?category=Services"
-        class="btn <%= selectedCategory === 'Services' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Services</a
-      >
-      <a
-        href="/ads?category=Jobs"
-        class="btn <%= selectedCategory === 'Jobs' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Jobs</a
-      >
-      <a
-        href="/ads?category=Other"
-        class="btn <%= selectedCategory === 'Other' ? 'btn-primary' : 'btn-outline-primary' %>"
-        >Other</a
-      >
-    </div>
+<div class="mb-4">
+  <div class="btn-group flex-wrap" role="group">
+    <a href="/ads" class="btn <%= selectedCategory === 'all' ? 'btn-info' : 'btn-outline-info' %>">All Platforms</a>
+    <% platforms.forEach((platform) => { %>
+      <a href="/ads?category=<%= encodeURIComponent(platform) %>" class="btn <%= selectedCategory === platform ? 'btn-info' : 'btn-outline-info' %>"><%= platform %></a>
+    <% }) %>
   </div>
 </div>
-<p>
-  <a href="/ads/new">Create a New Ad</a>
-</p>
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-  <% for (let ad of ads){%>
-  <div class="col">
-    <div class="card h-100">
-      <% if(ad.images.length) { %>
-      <img class="card-img-top" alt="" src="<%=ad.images[0].url%>" />
-      <% }else {%>
-      <img
-        class="card-img-top"
-        alt=""
-        src="https://res.cloudinary.com/douqbebwk/image/upload/v1600103881/YelpCamp/lz8jjv2gyynjil7lswf4.png"
-      />
-      <% } %>
-      <div class="card-body">
-        <h5 class="card-title"><%= ad.title %></h5>
-        <p class="card-text text-muted"><%= ad.location%></p>
-        <span class="badge bg-secondary mb-2"><%= ad.category %></span>
-        <br />
-        <a class="btn btn-primary" href="/ads/<%=ad._id%>"
-          >View <%=ad.title%></a
-        >
-      </div>
-      <div class="card-footer">
-        <small class="text-muted">$<%= ad.price %></small>
+<div class="row g-4">
+  <% ads.forEach((ad) => { %>
+    <div class="col-md-6 col-lg-4">
+      <div class="card glass-card hotel-card h-100 text-light">
+        <img class="card-img-top" src="<%= ad.images.length ? ad.images[0].url : '/Images/no-image.png' %>" alt="Hotel image" style="height:220px;object-fit:cover;" />
+        <div class="card-body">
+          <span class="badge bg-info mb-2"><%= ad.category %></span>
+          <h5><%= ad.title %></h5>
+          <p class="mb-2"><%= ad.location %></p>
+          <p class="mb-3">₹<%= ad.price %> / night</p>
+          <a class="btn btn-outline-light" href="/ads/<%= ad._id %>">Compare Reviews</a>
+        </div>
       </div>
     </div>
-  </div>
-  <% }%>
+  <% }) %>
 </div>
